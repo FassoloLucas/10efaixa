@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: business-control-system
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: business-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 24h
+
+databases:
+  - name: business-db
+    databaseName: business_control_system
+    user: business_user
+    plan: starter
